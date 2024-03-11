@@ -4,14 +4,14 @@ var dotenv = require('dotenv');
 dotenv.config();
 
 let page;
-let pageURL = process.env.siteName + '/dashboard';
+let pageURL = process.env.siteName;
 
 test.describe('Login', async()=>{
   test('KD-TC-5370: User should able to login kriyadocs with valid credentails', async ({ browser }) => {
     const context = await browser.newContext();
     page = await context.newPage();
     //log in credentials from .env file
-    await page.goto(pageURL);
+    await page.goto(pageURL + '/dashboard');
     await page.type('#username', process.env.kusername);
     await page.type('#password', process.env.password);
     await page.click('.input-field.login'); //clicking login button

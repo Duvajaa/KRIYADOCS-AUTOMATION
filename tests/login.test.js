@@ -19,7 +19,7 @@ test.describe('Login', async()=>{
     // wait till we get to see one of these
     await page.waitForSelector('//span[text() = "BMJ"]|//div[@class="col s6 confirmationPanel"]', { state: 'visible' });
     // if the page url is not the same, then we are waiting for confirmation
-    if (pageURL != page.url()) {
+    if (pageURL + '/dashboard' != page.url()) {
         await page.click('.confirm');
     }
     // wait for the customer cards to load, i.e., "".card"

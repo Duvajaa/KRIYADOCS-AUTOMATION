@@ -1,0 +1,22 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.25"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "diff-match-patch": "^1.0.5",
+    "dotenv": "^16.4.5",
+    "html-differ": "^1.4.0",
+    "libxmljs": "^1.0.11",
+    "unirest": "^0.6.0"
+  }
+}

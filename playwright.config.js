@@ -1,5 +1,6 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
+const os = require('node:os');
 
 /**
  * Read environment variables from file.
@@ -11,9 +12,11 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
+  timeout: 100000,
   testDir: './tests',
+  // expect: { timeout: 100000 },
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  // fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -22,9 +25,23 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-    ['html'],
     ['list'],
-    ['junit', {  outputFile: './playwright-report/junit.xml' }]
+    ['junit', {  outputFile: './reports/junit.xml' }],
+    [
+      "allure-playwright",
+      {
+        detail: true,
+        outputFolder: "allure-results",
+        suiteTitle: true,
+        environmentInfo: {
+          framework: "playwright 1.42.1",
+          os_platform: os.platform(),
+          os_release: os.release(),
+          os_version: os.version(),
+          node_version: process.version,
+        },
+      },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -33,7 +50,7 @@ module.exports = defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'off',
-    headless: false
+    // headless: false
   },
 
   /* Configure projects for major browsers */

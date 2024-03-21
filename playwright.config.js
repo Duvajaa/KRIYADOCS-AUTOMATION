@@ -12,6 +12,7 @@ const os = require('node:os');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
+  // globalSetup: require.resolve('./config/global-setup'),
   timeout: 100000,
   testDir: './tests',
   // expect: { timeout: 100000 },
@@ -58,7 +59,12 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+        use: { 
+        ...devices['Desktop Chrome'], 
+        launchOptions: {
+          args: ['--start-maximized']
+        }
+      },
     },
 
     // {

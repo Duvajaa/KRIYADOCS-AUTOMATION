@@ -26,22 +26,23 @@ module.exports = defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'],
-    ['junit', {  outputFile: './reports/junit.xml' }],
-    [
-      "allure-playwright",
-      {
-        detail: true,
-        outputFolder: "allure-results",
-        suiteTitle: true,
-        environmentInfo: {
-          framework: "playwright 1.42.1",
-          os_platform: os.platform(),
-          os_release: os.release(),
-          os_version: os.version(),
-          node_version: process.version,
-        },
-      },
-    ],
+    ['html'],
+    ['junit', {  outputFile: './playwright-report/junit.xml' }]
+    // [
+    //   "allure-playwright",
+    //   {
+    //     detail: true,
+    //     outputFolder: "allure-results",
+    //     suiteTitle: true,
+    //     environmentInfo: {
+    //       framework: "playwright 1.42.1",
+    //       os_platform: os.platform(),
+    //       os_release: os.release(),
+    //       os_version: os.version(),
+    //       node_version: process.version,
+    //     },
+    //   },
+    // ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {

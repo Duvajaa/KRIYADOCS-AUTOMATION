@@ -2,40 +2,40 @@
   "cookies": [
     {
       "name": "connect.sid",
-      "value": "s%3A8WofGzYNJwW27Bajh_jT5UJ52KZ8qLeI.oNTW4PHPK%2B%2F9VHSKc6Zoac5bz%2FHmFsR38NrEWulKWqs",
+      "value": "s%3AA5tuAI5uS_xYOL0P-BiKiTO8B4XUiFWF.J3lA%2F3hZTod6JklE0ZGfWTRYr0kFs9E65f1837yk75M",
       "domain": "staging.kriyadocs.com",
       "path": "/",
-      "expires": 1710164393.639035,
+      "expires": 1711002141.145214,
       "httpOnly": true,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "kAccTkn",
-      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrdXNlciI6eyJrdWlkIjoiNGI1MzYwZDMtOTliOC00ZWM5LWExNDYtNWEwOGVkOTU3MjYyIiwia3VuYW1lIjp7ImZpcnN0IjoiQXV0b21hdGlvbiIsImxhc3QiOiJUZXN0aW5nIn0sImt1ZW1haWwiOiJ0ZXN0aW5nYXV0b21hdGlvbkBleGV0ZXJwcmVtZWRpYS5jb20iLCJrYXBpa2V5IjoiNGI1MzYwZDMtOTliOC00ZWM5LWExNDYtNWEwOGVkOTU3MjYyIiwia3Vyb2xlc0FjY2VzcyI6ImFsbCJ9LCJpYXQiOjE3MTAxNjI1ODYsImV4cCI6MTcxMDI0ODk4Nn0.gO_2lBI5Zx-_lu_MIzYG7NqAYLnZHxI5sOFVgccJSlo",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrdXNlciI6eyJrdWlkIjoiNGI1MzYwZDMtOTliOC00ZWM5LWExNDYtNWEwOGVkOTU3MjYyIiwia3VuYW1lIjp7ImZpcnN0IjoiQXV0b21hdGlvbiIsImxhc3QiOiJUZXN0aW5nIn0sImt1ZW1haWwiOiJ0ZXN0aW5nYXV0b21hdGlvbkBleGV0ZXJwcmVtZWRpYS5jb20iLCJrYXBpa2V5IjoiNGI1MzYwZDMtOTliOC00ZWM5LWExNDYtNWEwOGVkOTU3MjYyIiwia3Vyb2xlc0FjY2VzcyI6ImFsbCJ9LCJpYXQiOjE3MTEwMDAzMzMsImV4cCI6MTcxMTA4NjczM30.0cea25y8b9NkQHZbc5EBlLwxD6VFl5FYzpR5_ZPp6mw",
       "domain": "staging.kriyadocs.com",
       "path": "/",
-      "expires": 1710248986.674046,
+      "expires": 1711086733.62319,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Strict"
     },
     {
       "name": "kAccExp",
-      "value": "1710248986535",
+      "value": "1711086733575",
       "domain": "staging.kriyadocs.com",
       "path": "/",
-      "expires": 1710248986.67437,
+      "expires": 1711086733.623464,
       "httpOnly": false,
       "secure": true,
       "sameSite": "Strict"
     },
     {
       "name": "kMachTkn",
-      "value": "c271b38a08ff2f4f79ebb8719a8c02662d50b5bc56e076ef518b9e1b019b",
+      "value": "18a0e53b5c66d4ddc65e636128d3189ea7951c17184ed977d9fa4055c750",
       "domain": "staging.kriyadocs.com",
       "path": "/",
-      "expires": 1741698586.674455,
+      "expires": 1742536333.623547,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Strict"

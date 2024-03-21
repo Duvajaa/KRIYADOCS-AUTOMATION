@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="24.412214">
+<testsuite name="example.test.js" timestamp="2024-03-21T05:52:04.949Z" hostname="chromium" tests="1" failures="0" skipped="0" time="7.523" errors="0">
+<testcase name="Login › KD-TC-5370: User should able to login kriyadocs with valid credentails" classname="example.test.js" time="7.523">
+</testcase>
+</testsuite>
+</testsuites>

@@ -1,5 +1,7 @@
 # Kriyadocs Regression Automation
 
+![alt text](pw-allure.png)
+
 ## Overview
 This repository contains regression automation tests for the Kriyadocs project. The automation framework is built using Playwright version 1.42.1, providing robust and efficient testing capabilities. All test results are reported using the allure-report reporter, offering detailed insights into test execution and results.
 

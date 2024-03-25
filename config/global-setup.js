@@ -22,6 +22,7 @@ module.exports = async config => {
     }
     // wait for the customer cards to load, i.e., "".card"
     await page.waitForSelector('#customerSelectionDiv .customerTitle .customerTitleDiv', { state: 'visible' });
+    console.log("global-setup completed")
     await page.context().storageState({path: "user.json"})
     await browser.close();
 }

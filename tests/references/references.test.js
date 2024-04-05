@@ -38,18 +38,18 @@ test.describe('References',async() => {
         //DOI
         await page.goto(config.article2);
         await page.waitForLoadState();
-        // await page.waitForTimeout(10000)
-        await page.locator('.jrnlRefHead.activeElement').   click();
+        await page.waitForSelector('#contentDivNode .front .jrnlHeaderInfo .jrnlTitle');
+        await page.locator('#contentDivNode .front .jrnlHeaderInfo .jrnlTitle').click();
         await page.waitForSelector('.kriyaMenuBtn[data-name="Insert"]');
         await page.locator('.kriyaMenuBtn[data-name="Insert"]').click()
         await page.locator('.kriyaMenuItem[data-name="InsertReference"]').click()
-        await page.locator('#byDOI').click()
+        await page.getByText('By DOI').click()
         await page.locator('.text-line.searchField').fill(config.testdoi)
         await page.locator('.btn.btn-medium.pull-right[data-message*="searchRef_new"][data-message*="crossref"]').click()
         await page.locator('.btn.btn-medium.orange.validateBtn.screen1show.screen2hide.screen3hide').click()
         await page.locator('.btn.btn-medium.blue.lighten-1.insertNewRef.screen3hide.screen2hide.screen1hide.insertshow').click()
         const Ddoiref = page.locator('.toast')
-        const doiref = page.locator('.jrnlRefText[data-pmid="38552609"]')
+        const doiref = page.locator('.jrnlRefText[data-pmid="38557498"]')
         await expect(Ddoiref).toBeVisible()
         await expect(doiref).toHaveAttribute('data-doi',config.testdoi)
 
@@ -58,10 +58,11 @@ test.describe('References',async() => {
     test('KD-TC-5381: User Should be able to insert a reference using pubmedid in editor',async() => {
         //apply house rules --> approve --> select insert and add reference
         //pubmedid
-        await page.locator('.jrnlRefHead.activeElement').click();
+        await page.waitForSelector('#contentDivNode .front .jrnlHeaderInfo .jrnlTitle');
+        await page.locator('#contentDivNode .front .jrnlHeaderInfo .jrnlTitle').click()
         await page.locator('.kriyaMenuBtn[data-name="Insert"]').click()
         await page.locator('.kriyaMenuItem[data-name="InsertReference"]').click()
-        await page.locator('#byPubMed').click()
+        await page.getByText('By PubMed ID').click()
         await page.locator('.text-line.searchField').fill('38538791')
         await page.locator('.btn.btn-medium.pull-right[data-message*="searchRef_new"][data-message*="crossref"]').click()
         await page.locator('.btn.btn-medium.orange.validateBtn.screen1show.screen2hide.screen3hide').click()
@@ -77,10 +78,11 @@ test.describe('References',async() => {
 
         //apply house rules --> approve --> select insert and add reference
     //paste ref --> assertion(select parent class and sub class(surname)to have text) for eg - loc(#11f4a903-8d10-4143-8f6d-f2984bd6c607 .RefSurName).to have text('cha')
-        await page.locator('.jrnlRefHead.activeElement').click();
+    await page.waitForSelector('#contentDivNode .front .jrnlHeaderInfo .jrnlTitle');
+    await page.locator('#contentDivNode .front .jrnlHeaderInfo .jrnlTitle').click()
         await page.locator('.kriyaMenuBtn[data-name="Insert"]').click()
         await page.locator('.kriyaMenuItem[data-name="InsertReference"]').click()    
-        await page.locator('#byPasteRef').click()
+        await page.getByText('Paste entire reference').click()
         await page.locator('.text-line.searchField').fill(config.testref)
         await page.locator('.btn.btn-medium.pull-right[data-message*="searchRef_new"][data-message*="crossref"]').click()
         await page.locator('.btn.btn-medium.orange.validateBtn.screen1show.screen2hide.screen3hide').click()

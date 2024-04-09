@@ -4,3 +4,5 @@ node_modules/
 /allure-results/
 /playwright/.cache/
 .env
+.csv
+.xlsx

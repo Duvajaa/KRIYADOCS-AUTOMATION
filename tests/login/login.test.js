@@ -4,12 +4,14 @@ var dotenv = require('dotenv');
 dotenv.config();
 
 
+let page;
 test.describe('Kriya_login', async() => {
     
     //to check valid credentials
     test('KD-TC-5370: User Should be able to login with valid credentials',async({ browser }) => {
         const context = await browser.newContext();
-        const page = await context.newPage();
+        page = await context.newPage();
+        await page.goto(process.env.siteName+"/logout");
         await page.goto(process.env.siteName);
         await page.locator('#username').fill(process.env.kusername);
         await page.locator('#password').fill(process.env.password);
@@ -25,7 +27,8 @@ test.describe('Kriya_login', async() => {
     })
    
     //to check invalid credentials
-    test('KD-TC-5371: User Should be able to login with invalid credentials and show error',async({ page }) => {
+    test('KD-TC-5371: User Should be able to login with invalid credentials and show error',async() => {
+        await page.goto(process.env.siteName+"/logout");
         await page.goto(process.env.siteName);
         await page.locator('#username').fill(process.env.kusername);
         await page.locator('#password').fill('HappyAuthors');
@@ -35,7 +38,7 @@ test.describe('Kriya_login', async() => {
     })
      
     //reset link is sent
-    test('KD-TC-5372: forget password should send a reset link in email to user with valid email',async({ page }) => {
+    test('KD-TC-5372: forget password should send a reset link in email to user with valid email',async() => {
         await page.goto(process.env.siteName);
         if(await page.locator('.row.login-view.forgetpassword.forgetPass').click())
         {
@@ -48,7 +51,7 @@ test.describe('Kriya_login', async() => {
     })
     
     //empty username and password
-    test('KD-TC-5373: User Should not be allowed to login with empty username and password ',async({ page }) => {
+    test('KD-TC-5373: User Should not be allowed to login with empty username and password ',async() => {
         await page.goto(process.env.siteName);
         await page.locator('.input-field.col.s12.login.center.loginButton').click();
         const invuser = page.locator('#username.validate.formfields.invalid');

@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-var config = require('.//issue.json')
+var config = require('./issue.json')
 var dotenv = require('dotenv');
 const { request } = require('http');
 dotenv.config();

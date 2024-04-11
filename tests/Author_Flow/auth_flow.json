@@ -1,0 +1,12 @@
+{
+    "baseurl": "/dashboard",
+    "editor_test": {
+      "articletotest": [
+        {
+          "customer": "asm",
+          "project": "spectrum",
+          "doi": "Spectrum.00859-23"
+        }
+      ]
+    }
+}

@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const path = require('path'); // Import the path module
 var dotenv = require('dotenv');
 var config = require('./submission.json');
 dotenv.config();
@@ -17,7 +18,7 @@ test.describe('submission',async() => {
         await page.click('.login-btn.orcid-login');
         await page.waitForTimeout(5000)
         const page1 = await page1Promise;
-        //await page.click('#onetrust-button-group #onetrust-accept-btn-handler');
+        //await page.click('.ot-sdk-row #onetrust-accept-btn-handler');
         await page1.waitForLoadState();
         await page1.locator('#username').fill(config.username);
         await page1.locator('#password').fill('ORCID72009434390');
@@ -37,7 +38,7 @@ test.describe('submission',async() => {
         await page.click('.login-btn.orcid-login');
         await page.waitForTimeout(5000);
         const page2 = await page2Promise;
-        //await page.click('#onetrust-button-group #onetrust-accept-btn-handler');
+        //await page.click('.ot-sdk-row #onetrust-accept-btn-handler');
         await page2.waitForLoadState();
         await page2.locator('#username').fill(config.username);
         await page2.locator('#password').fill(config.password);
@@ -53,7 +54,7 @@ test.describe('submission',async() => {
         //opening new tab
         const pagePromise = context.waitForEvent('page');
         await page.locator("//div[@class='message']//button[@aria-label='Go to submission'][normalize-space()='Go to submission']").click() 
-        const newPage = await pagePromise;
+        newPage = await pagePromise;
         await newPage.waitForLoadState();
 
     //     const [newPage]=await Promise.all([
@@ -118,26 +119,34 @@ test.describe('submission',async() => {
     })
     
     test('KD-TC-5423: check that user can upload the file',async() => {
-        await newPage.click('.custom-kriyadocs-file [filetype="manuscript"]'); //choose the selector
-        var manuscriptFile = await newPage.$('.fileChooser"]'); //locate the file
-        await manuscriptFile.setInputFiles(path.resolve("./tests/submission/Test_MS(AMA) 1.docx")); //upload the file
+        await newPage.click('.mandatory.displayFile'); //Add button
+        //await newPage.click('.fileChooser');
+        //input[type="file"]
+        await newPage.waitForSelector('#fileUploadModal')
+        const manuscriptFile = await newPage.locator('#fileUploadModal input[type="file"]');
+        if(manuscriptFile){
+            console.log("Element is present")
+        } else {
+            console.log("Element not present")
+        }
+        await manuscriptFile.setInputFiles(path.resolve(config.file)); //upload the file
         await newPage.click('.btn.button.filled.large.upload_button.save'); //click the upload button
-        const file = newPage.getByText("Test_MS_AMA_ 1.docx"); //verify attached or not
-        await expect(file).toBeAttached();
+        const file = newPage.locator(".col-5.fileLabel .mandatory.displayFile"); //verify attached or not
+        await expect(file).toHaveText("Test_MS_AMA__1.docx");
         await newPage.click('.nextButton.button.filled.large.nextButtonGroup'); //next
     
     })
     
 
     test('KD-TC-5424: check that user can submit the manuscript',async() => {
-       const file1 = newPage.getByText("Test_MS_AMA_ 1.docx"); //manuscript there or not
-       await expect(file1).toBeAttached();
+       const file1 = newPage.locator(".documentList .docLink");; //manuscript there or not
+       await expect(file1).toHaveText("Test_MS_AMA__1.docx");
        await newPage.click('.col-12 #submitPage'); //submit
        await newPage.click('.modal-footer #submitPage'); //agree and submit
        const submit = newPage.locator('.message .messageHeader'); //dialog box
        await expect(submit).toHaveText("You have successfully submitted the article!");
 
-    //assertion
+
 
     })
 

@@ -9,7 +9,8 @@
     "City":"Bern",
     "Country":"Switzerland",
     "Statement":"hello",
-    "fundstate":"hey"
+    "fundstate":"hey",
+    "file":"./tests/submission/Test_MS(AMA)_1.docx"
 
 
     

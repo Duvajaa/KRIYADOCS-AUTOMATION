@@ -15,6 +15,7 @@ module.exports = defineConfig({
   // globalSetup: require.resolve('./config/global-setup'),
   timeout: 100000,
   testDir: './tests',
+  workers: 1,
   // expect: { timeout: 100000 },
   /* Run tests in files in parallel */
   // fullyParallel: true,
@@ -23,7 +24,7 @@ module.exports = defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  // workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['list'],

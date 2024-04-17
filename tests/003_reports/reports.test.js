@@ -44,6 +44,7 @@ test.describe('reports',async() => {
         await download1.saveAs("./tests/reports" + download1.suggestedFilename());
         await page.wai
         await page.click('#dropdownMenuButton');
+        await page.screenshot({ path: 'tests/003_reports/reports1.png' });
         // Start waiting for download before clicking. Note no await.
         const downloadPromise2 = page.waitForEvent('download');
         await page.locator('.dropdown-item[onclick="eventHandler.components.actionitems.exportCSV(this,event)"]').click();

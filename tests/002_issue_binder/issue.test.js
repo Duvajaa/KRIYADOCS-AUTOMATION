@@ -12,7 +12,7 @@ test.describe('issue_binder',async() =>{
     test('KD-TC-5410: User should be able to create a new issue',async({browser}) =>{
     const context = await browser.newContext({storageState: "user.json"})
     page = await context.newPage()
-    await page.goto(pageURL)
+    await page.goto(pageURL+config.baseurl)
     await page.getByText('asmAmerican Society for').click()
     //wait for issue icon
     await page.waitForSelector('.nav-link.issue')
@@ -49,6 +49,7 @@ test.describe('issue_binder',async() =>{
     await page1.close();
     //previous tab  
     page.bringToFront(),
+    await page.screenshot({ path: 'tests/002_issue_binder/issue1.png' });
     //successfully added pop-up
     expect(page.locator('.ui-pnotify-title')).toBeVisible()
     

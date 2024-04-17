@@ -55,6 +55,8 @@ test.describe('Kriya_login', async() => {
                 await page.locator('.btn.waves-effect.waves-light.confirm').click();
             }
             await page.waitForSelector('#customerSelectionDiv .customerTitle .customerTitleDiv');
+            await page.waitForTimeout(2000);
+            await page.screenshot({ path: 'tests/001_login/login1.png' });
             await page.context().storageState({path: "user.json"})
             const dboard = page.locator('#customerSelectionDiv .customerTitle .customerTitleDiv');
             await expect(dboard).toBeVisible();

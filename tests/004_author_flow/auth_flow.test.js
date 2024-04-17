@@ -59,10 +59,10 @@ test('KD-TC-5396: Author should receive a link to edit an article',async({browse
 
     //search the doi 
     await page.waitForSelector('#searchBox.form-control.form-control-sm')
+    await page.waitForSelector("div[data-overdue-status='true'][data-type='manuscript'][data-index='0'][data-overdue-all='All'][data-doi='spectrum.02408-22']")
     await page.locator('#searchBox.form-control.form-control-sm').type('Spectrum00859-23')
-    await page.waitForTimeout(15000);
     await page.click("button[class='searchIcon']");
-    await page.waitForTimeout(10000);
+    await page.waitForTimeout(15000);
 
     //click the article
     //const article = page.locator('.articleFilteredCard.articleDetailed.articles.mt-1 .articleCard.row.section.article.searchData')

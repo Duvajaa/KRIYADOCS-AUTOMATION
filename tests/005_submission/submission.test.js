@@ -4,14 +4,13 @@ var dotenv = require('dotenv');
 var config = require('./submission.json');
 dotenv.config();
 
-
 let page
 let newPage
 let context
 
 test.describe('submission',async() => {
     test('KD-TC-5421: Login with invalid ORCID credentials',async({ browser }) => {
-        const context = await browser.newContext({storageState: "user.json"});
+        const context = await browser.newContext();
         page = await context.newPage();
         await page.goto(config.site);
         const page1Promise = page.waitForEvent('popup');
@@ -31,7 +30,7 @@ test.describe('submission',async() => {
     })
     
     test('KD-TC-5420: Login with valid ORCID credentials',async({browser}) => {
-        context = await browser.newContext({storageState: "user.json"});
+        context = await browser.newContext();
         page = await context.newPage();
         await page.goto(config.site);
         const page2Promise = page.waitForEvent('popup');
@@ -63,7 +62,7 @@ test.describe('submission',async() => {
     // ]) 
     //Article details
         // await newPage.waitForLoadState()
-        await newPage.waitForTimeout(8000);
+        // await newPage.waitForTimeout(8000);
         // Locate the dropdown element
         await newPage.waitForSelector('.kriya-selectbox.dropdown-toggle[data-change-func="changeArticleType"]')
         await newPage.click('.kriya-selectbox.dropdown-toggle[data-change-func="changeArticleType"]') // Replace with the actual selector
@@ -131,6 +130,7 @@ test.describe('submission',async() => {
         }
         await manuscriptFile.setInputFiles(path.resolve(config.file)); //upload the file
         await newPage.click('.btn.button.filled.large.upload_button.save'); //click the upload button
+        await newPage.waitForSelector('#animation-container', { state: 'hidden' });
         const file = newPage.locator(".col-5.fileLabel .mandatory.displayFile"); //verify attached or not
         await expect(file).toHaveText("Test_MS_AMA__1.docx");
         await newPage.click('.nextButton.button.filled.large.nextButtonGroup'); //next
@@ -143,11 +143,9 @@ test.describe('submission',async() => {
        await expect(file1).toHaveText("Test_MS_AMA__1.docx");
        await newPage.click('.col-12 #submitPage'); //submit
        await newPage.click('.modal-footer #submitPage'); //agree and submit
-       const submit = newPage.locator('.message .messageHeader'); //dialog box
+    //    await newPage.waitForSelector(".messageDiv .message");
+       const submit = newPage.locator('.messageDiv .message'); //dialog box
        await expect(submit).toHaveText("You have successfully submitted the article!");
-
-
-
     })
 
     // test('KD-TC-5425:check that user can able to access the save NewPage using same credential',async() => {

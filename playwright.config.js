@@ -12,7 +12,7 @@ const os = require('node:os');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-  // globalSetup: require.resolve('./config/global-setup'),
+  globalSetup: require.resolve('./config/global-setup'),
   timeout: 100000,
   testDir: './tests',
   workers: 1,

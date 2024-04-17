@@ -1,6 +1,629 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="24.412214">
-<testsuite name="example.test.js" timestamp="2024-03-21T05:52:04.949Z" hostname="chromium" tests="1" failures="0" skipped="0" time="7.523" errors="0">
-<testcase name="Login › KD-TC-5370: User should able to login kriyadocs with valid credentails" classname="example.test.js" time="7.523">
+<testsuites id="" name="" tests="28" failures="12" skipped="12" errors="0" time="46.89393799999999">
+<testsuite name="001_login/login.test.js" timestamp="2024-04-17T07:10:54.089Z" hostname="chromium" tests="4" failures="0" skipped="0" time="30.868" errors="0">
+<testcase name="Kriya_login › KD-TC-5370: User Should be able to login with valid credentials" classname="001_login/login.test.js" time="20.471">
+</testcase>
+<testcase name="Kriya_login › KD-TC-5371: User Should be able to login with invalid credentials and show error" classname="001_login/login.test.js" time="5.937">
+</testcase>
+<testcase name="Kriya_login › KD-TC-5372: forget password should send a reset link in email to user with valid email" classname="001_login/login.test.js" time="2.368">
+</testcase>
+<testcase name="Kriya_login › KD-TC-5373: User Should not be allowed to login with empty username and password " classname="001_login/login.test.js" time="2.092">
+</testcase>
+</testsuite>
+<testsuite name="002_issue_binder/issue.test.js" timestamp="2024-04-17T07:10:54.089Z" hostname="chromium" tests="4" failures="4" skipped="0" time="0.029" errors="0">
+<testcase name="issue_binder › KD-TC-5410: User should be able to create a new issue" classname="002_issue_binder/issue.test.js" time="0.002">
+<failure message="issue.test.js:12:5 KD-TC-5410: User should be able to create a new issue" type="FAILURE">
+<![CDATA[  [chromium] › 002_issue_binder/issue.test.js:12:5 › issue_binder › KD-TC-5410: User should be able to create a new issue 
+
+    Error: Error reading storage state from user.json:
+    ENOENT: no such file or directory, open 'user.json'
+]]>
+</failure>
+</testcase>
+<testcase name="issue_binder › KD-TC-5411: User should be able to add articles into the section" classname="002_issue_binder/issue.test.js" time="0.009">
+<failure message="issue.test.js:58:3 KD-TC-5411: User should be able to add articles into the section" type="FAILURE">
+<![CDATA[  [chromium] › 002_issue_binder/issue.test.js:58:3 › issue_binder › KD-TC-5411: User should be able to add articles into the section 
+
+    TypeError: Cannot read properties of undefined (reading 'goto')
+
+      58 |   test('KD-TC-5411: User should be able to add articles into the section',async() =>{
+      59 |         //issue binder page
+    > 60 |         await page.goto(`https://staging.kriyadocs.com/binder?fileName=msphere_${config.vol_no}_${issuenum}&customer=asm&project=msphere&type=journal`)
+         |                    ^
+      61 |         // await page.goto("https://staging.kriyadocs.com/binder?fileName=msphere_11_502&customer=asm&project=msphere&type=journal")
+      62 |         await page.waitForLoadState();
+      63 |         await page.waitForTimeout(10000);
+
+        at /Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/002_issue_binder/issue.test.js:60:20
+]]>
+</failure>
+</testcase>
+<testcase name="issue_binder › KD-TC-5412: User should be able to export pdf" classname="002_issue_binder/issue.test.js" time="0.009">
+<failure message="issue.test.js:77:3 KD-TC-5412: User should be able to export pdf" type="FAILURE">
+<![CDATA[  [chromium] › 002_issue_binder/issue.test.js:77:3 › issue_binder › KD-TC-5412: User should be able to export pdf 
+
+    TypeError: Cannot read properties of undefined (reading 'waitForTimeout')
+
+      76 |
+      77 |   test('KD-TC-5412: User should be able to export pdf',async() =>{
+    > 78 |         await page.waitForTimeout(5000)
+         |                    ^
+      79 |         //click the export all pdf button
+      80 |         await page.click('.btn-issue.btn.btn-xs.btn-filled.pull-right.empty-issue-disable')
+      81 |         //exporting pdf pop-up
+
+        at /Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/002_issue_binder/issue.test.js:78:20
+]]>
+</failure>
+</testcase>
+<testcase name="issue_binder › KD-TC-5413: User should be able to signoff the issues" classname="002_issue_binder/issue.test.js" time="0.009">
+<failure message="issue.test.js:94:5 KD-TC-5413: User should be able to signoff the issues" type="FAILURE">
+<![CDATA[  [chromium] › 002_issue_binder/issue.test.js:94:5 › issue_binder › KD-TC-5413: User should be able to signoff the issues 
+
+    TypeError: Cannot read properties of undefined (reading 'waitForTimeout')
+
+      93 |     })
+      94 |     test('KD-TC-5413: User should be able to signoff the issues',async() =>{
+    > 95 |         await page.waitForTimeout(4000)
+         |                    ^
+      96 |         //click approve button
+      97 |         await page.click('#approveBtn')
+      98 |         //approve pop-up
+
+        at /Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/002_issue_binder/issue.test.js:95:20
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="003_reports/reports.test.js" timestamp="2024-04-17T07:10:54.089Z" hostname="chromium" tests="2" failures="2" skipped="0" time="0.02" errors="0">
+<testcase name="reports › KD-TC-5408:User should be able to view the article summary report with a date range" classname="003_reports/reports.test.js" time="0.011">
+<failure message="reports.test.js:8:5 KD-TC-5408:User should be able to view the article summary report with a date range" type="FAILURE">
+<![CDATA[  [chromium] › 003_reports/reports.test.js:8:5 › reports › KD-TC-5408:User should be able to view the article summary report with a date range 
+
+    Error: Error reading storage state from user.json:
+    ENOENT: no such file or directory, open 'user.json'
+]]>
+</failure>
+</testcase>
+<testcase name="reports › KD-TC-5409:User should be able to export the reports to csv and excel format" classname="003_reports/reports.test.js" time="0.009">
+<failure message="reports.test.js:34:5 KD-TC-5409:User should be able to export the reports to csv and excel format" type="FAILURE">
+<![CDATA[  [chromium] › 003_reports/reports.test.js:34:5 › reports › KD-TC-5409:User should be able to export the reports to csv and excel format 
+
+    TypeError: Cannot read properties of undefined (reading 'click')
+
+      34 |     test('KD-TC-5409:User should be able to export the reports to csv and excel format',async() => {
+      35 |         // await page.click('.card-widget.row[data-report="All Article summary"]');
+    > 36 |         await page.click('#dropdownMenuButton');
+         |                    ^
+      37 |         
+      38 |         // Start waiting for download before clicking. Note no await.
+      39 |         const downloadPromise1 = page.waitForEvent('download');
+
+        at /Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/003_reports/reports.test.js:36:20
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="005_submission/submission.test.js" timestamp="2024-04-17T07:10:54.089Z" hostname="chromium" tests="5" failures="5" skipped="0" time="0.048" errors="0">
+<testcase name="submission › KD-TC-5421: Login with invalid ORCID credentials" classname="005_submission/submission.test.js" time="0.01">
+<failure message="submission.test.js:13:5 KD-TC-5421: Login with invalid ORCID credentials" type="FAILURE">
+<![CDATA[  [chromium] › 005_submission/submission.test.js:13:5 › submission › KD-TC-5421: Login with invalid ORCID credentials 
+
+    Error: Error reading storage state from user.json:
+    ENOENT: no such file or directory, open 'user.json'
+]]>
+</failure>
+</testcase>
+<testcase name="submission › KD-TC-5420: Login with valid ORCID credentials" classname="005_submission/submission.test.js" time="0.011">
+<failure message="submission.test.js:33:5 KD-TC-5420: Login with valid ORCID credentials" type="FAILURE">
+<![CDATA[  [chromium] › 005_submission/submission.test.js:33:5 › submission › KD-TC-5420: Login with valid ORCID credentials 
+
+    Error: Error reading storage state from user.json:
+    ENOENT: no such file or directory, open 'user.json'
+]]>
+</failure>
+</testcase>
+<testcase name="submission › KD-TC-5422: Check that user can save the entered data before submiting the data" classname="005_submission/submission.test.js" time="0.009">
+<failure message="submission.test.js:52:5 KD-TC-5422: Check that user can save the entered data before submiting the data" type="FAILURE">
+<![CDATA[  [chromium] › 005_submission/submission.test.js:52:5 › submission › KD-TC-5422: Check that user can save the entered data before submiting the data 
+
+    TypeError: Cannot read properties of undefined (reading 'waitForTimeout')
+
+      51 |     
+      52 |     test('KD-TC-5422: Check that user can save the entered data before submiting the data',async() => {
+    > 53 |         await page.waitForTimeout(5000);
+         |                    ^
+      54 |         //opening new tab
+      55 |         const pagePromise = context.waitForEvent('page');
+      56 |         await page.locator("//div[@class='message']//button[@aria-label='Go to submission'][normalize-space()='Go to submission']").click() 
+
+        at /Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/005_submission/submission.test.js:53:20
+]]>
+</failure>
+</testcase>
+<testcase name="submission › KD-TC-5423: check that user can upload the file" classname="005_submission/submission.test.js" time="0.009">
+<failure message="submission.test.js:121:5 KD-TC-5423: check that user can upload the file" type="FAILURE">
+<![CDATA[  [chromium] › 005_submission/submission.test.js:121:5 › submission › KD-TC-5423: check that user can upload the file 
+
+    TypeError: Cannot read properties of undefined (reading 'click')
+
+      120 |     
+      121 |     test('KD-TC-5423: check that user can upload the file',async() => {
+    > 122 |         await newPage.click('.mandatory.displayFile'); //Add button
+          |                       ^
+      123 |         //await newPage.click('.fileChooser');
+      124 |         //input[type="file"]
+      125 |         await newPage.waitForSelector('#fileUploadModal')
+
+        at /Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/005_submission/submission.test.js:122:23
+]]>
+</failure>
+</testcase>
+<testcase name="submission › KD-TC-5424: check that user can submit the manuscript" classname="005_submission/submission.test.js" time="0.009">
+<failure message="submission.test.js:141:5 KD-TC-5424: check that user can submit the manuscript" type="FAILURE">
+<![CDATA[  [chromium] › 005_submission/submission.test.js:141:5 › submission › KD-TC-5424: check that user can submit the manuscript 
+
+    TypeError: Cannot read properties of undefined (reading 'locator')
+
+      140 |
+      141 |     test('KD-TC-5424: check that user can submit the manuscript',async() => {
+    > 142 |        const file1 = newPage.locator(".documentList .docLink");; //manuscript there or not
+          |                              ^
+      143 |        await expect(file1).toHaveText("Test_MS_AMA__1.docx");
+      144 |        await newPage.click('.col-12 #submitPage'); //submit
+      145 |        await newPage.click('.modal-footer #submitPage'); //agree and submit
+
+        at /Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/005_submission/submission.test.js:142:30
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="Author_Flow/auth_flow.test.js" timestamp="2024-04-17T07:10:54.089Z" hostname="chromium" tests="4" failures="1" skipped="3" time="0.005" errors="0">
+<testcase name="AuthorFlow › KD-TC-5396: Author should receive a link to edit an article" classname="Author_Flow/auth_flow.test.js" time="0.005">
+<failure message="auth_flow.test.js:32:1 KD-TC-5396: Author should receive a link to edit an article" type="FAILURE">
+<![CDATA[  [chromium] › Author_Flow/auth_flow.test.js:32:1 › AuthorFlow › KD-TC-5396: Author should receive a link to edit an article 
+
+    AxiosError: Request failed with status code 400
+
+       at ../commonfunctionality.js:23
+
+      21 |         formData.append('xmlFile', fs.createReadStream(filePath));
+      22 |
+    > 23 |         const response = await axios.post(process.env.siteName + '/api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599', formData, {
+         |                          ^
+      24 |             headers: {
+      25 |                 'Content-Type': 'multipart/form-data',
+      26 |             },
+
+        at settle (/Users/abishekkumar.v/Desktop/Automation/regression-automation/node_modules/axios/lib/core/settle.js:19:12)
+        at IncomingMessage.handleStreamEnd (/Users/abishekkumar.v/Desktop/Automation/regression-automation/node_modules/axios/lib/adapters/http.js:589:11)
+        at Axios.request (/Users/abishekkumar.v/Desktop/Automation/regression-automation/node_modules/axios/lib/core/Axios.js:45:41)
+        at Object.resetData (/Users/abishekkumar.v/Desktop/Automation/regression-automation/commonfunctionality.js:23:26)
+        at /Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/Author_Flow/auth_flow.test.js:23:32
+]]>
+</failure>
+<system-out>
+<![CDATA[/Users/abishekkumar.v/Desktop/Automation/regression-automation/tests/Author_Flow/Spectrum.00859-23.xml
+]]>
+</system-out>
+<system-err>
+<![CDATA[AxiosError: Request failed with status code 400
+    at settle [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4maxios[24m/lib/core/settle.js:19:12[90m)[39m
+    at IncomingMessage.handleStreamEnd [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4maxios[24m/lib/adapters/http.js:589:11[90m)[39m
+[90m    at IncomingMessage.emit (node:events:525:35)[39m
+[90m    at endReadableNT (node:internal/streams/readable:1358:12)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:83:21)[39m
+    at Axios.request [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4maxios[24m/lib/core/Axios.js:45:41[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:96:5)[39m
+    at Object.resetData [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mcommonfunctionality.js:23:26[90m)[39m
+    at [90m/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mtests/Author_Flow/auth_flow.test.js:23:32
+    at [90m/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/workerMain.js:512:13
+    at __PWZONE__[2]-stepZone [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/testInfo.js:332:24[90m)[39m
+    at TestInfoImpl._runAsStep [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/testInfo.js:330:12[90m)[39m
+    at [90m/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/testInfo.js:322:14
+    at TimeoutManager.withRunnable [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/timeoutManager.js:54:14[90m)[39m
+    at TestInfoImpl._runAsStepWithRunnable [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/testInfo.js:317:12[90m)[39m
+    at [90m/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/workerMain.js:503:9
+    at TestInfoImpl._runAndFailOnError [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/testInfo.js:183:7[90m)[39m
+    at WorkerMain._runAllHooksForSuite [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/workerMain.js:497:21[90m)[39m
+    at WorkerMain._runBeforeAllHooksForSuite [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/workerMain.js:490:12[90m)[39m
+    at [90m/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/workerMain.js:319:34
+    at __PWZONE__[1]-stepZone [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/testInfo.js:332:24[90m)[39m
+    at TestInfoImpl._runAsStep [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/testInfo.js:330:12[90m)[39m
+    at [90m/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/workerMain.js:312:7
+    at TimeoutRunner.run [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright-core[24m/lib/utils/timeoutRunner.js:49:14[90m)[39m
+    at TimeoutManager.runWithTimeout [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/timeoutManager.js:74:7[90m)[39m
+    at TestInfoImpl._runWithTimeout [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/testInfo.js:168:26[90m)[39m
+    at WorkerMain._runTest [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/workerMain.js:289:5[90m)[39m
+    at WorkerMain.runTestGroup [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/worker/workerMain.js:213:11[90m)[39m
+    at process.<anonymous> [90m(/Users/abishekkumar.v/Desktop/Automation/regression-automation/[39mnode_modules/[4mplaywright[24m/lib/common/process.js:96:22[90m)[39m {
+  code: [32m'ERR_BAD_REQUEST'[39m,
+  config: {
+    transitional: {
+      silentJSONParsing: [33mtrue[39m,
+      forcedJSONParsing: [33mtrue[39m,
+      clarifyTimeoutError: [33mfalse[39m
+    },
+    adapter: [ [32m'xhr'[39m, [32m'http'[39m ],
+    transformRequest: [ [36m[Function: transformRequest][39m ],
+    transformResponse: [ [36m[Function: transformResponse][39m ],
+    timeout: [33m0[39m,
+    xsrfCookieName: [32m'XSRF-TOKEN'[39m,
+    xsrfHeaderName: [32m'X-XSRF-TOKEN'[39m,
+    maxContentLength: [33m-1[39m,
+    maxBodyLength: [33m-1[39m,
+    env: { FormData: [36m[Function][39m, Blob: [1mnull[22m },
+    validateStatus: [36m[Function: validateStatus][39m,
+    headers: Object [AxiosHeaders] {
+      Accept: [32m'application/json, text/plain, */*'[39m,
+      [32m'Content-Type'[39m: [32m'multipart/form-data; boundary=--------------------------692293862616301590367863'[39m,
+      [32m'User-Agent'[39m: [32m'axios/1.6.7'[39m,
+      [32m'Content-Length'[39m: [32m'2417432'[39m,
+      [32m'Accept-Encoding'[39m: [32m'gzip, compress, deflate, br'[39m
+    },
+    method: [32m'post'[39m,
+    url: [32m'https://staging.kriyadocs.com/api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599'[39m,
+    data: FormData {
+      _overheadLength: [33m384[39m,
+      _valueLength: [33m11[39m,
+      _valuesToMeasure: [36m[Array][39m,
+      writable: [33mfalse[39m,
+      readable: [33mtrue[39m,
+      dataSize: [33m0[39m,
+      maxDataSize: [33m2097152[39m,
+      pauseStreams: [33mtrue[39m,
+      _released: [33mtrue[39m,
+      _streams: [],
+      _currentStream: [1mnull[22m,
+      _insideLoop: [33mfalse[39m,
+      _pendingNext: [33mfalse[39m,
+      _boundary: [32m'--------------------------692293862616301590367863'[39m,
+      _events: [36m[Object: null prototype][39m,
+      _eventsCount: [33m3[39m
+    }
+  },
+  request: [36m<ref *1>[39m ClientRequest {
+    _events: [Object: null prototype] {
+      abort: [36m[Function (anonymous)][39m,
+      aborted: [36m[Function (anonymous)][39m,
+      connect: [36m[Function (anonymous)][39m,
+      error: [36m[Function (anonymous)][39m,
+      socket: [36m[Function (anonymous)][39m,
+      timeout: [36m[Function (anonymous)][39m,
+      prefinish: [36m[Function: requestOnPrefinish][39m
+    },
+    _eventsCount: [33m7[39m,
+    _maxListeners: [90mundefined[39m,
+    outputData: [],
+    outputSize: [33m0[39m,
+    writable: [33mtrue[39m,
+    destroyed: [33mfalse[39m,
+    _last: [33mtrue[39m,
+    chunkedEncoding: [33mfalse[39m,
+    shouldKeepAlive: [33mfalse[39m,
+    maxRequestsOnConnectionReached: [33mfalse[39m,
+    _defaultKeepAlive: [33mtrue[39m,
+    useChunkedEncodingByDefault: [33mtrue[39m,
+    sendDate: [33mfalse[39m,
+    _removedConnection: [33mfalse[39m,
+    _removedContLen: [33mfalse[39m,
+    _removedTE: [33mfalse[39m,
+    _contentLength: [1mnull[22m,
+    _hasBody: [33mtrue[39m,
+    _trailer: [32m''[39m,
+    finished: [33mtrue[39m,
+    _headerSent: [33mtrue[39m,
+    _closed: [33mfalse[39m,
+    socket: TLSSocket {
+      _tlsOptions: [36m[Object][39m,
+      _secureEstablished: [33mtrue[39m,
+      _securePending: [33mfalse[39m,
+      _newSessionPending: [33mfalse[39m,
+      _controlReleased: [33mtrue[39m,
+      secureConnecting: [33mfalse[39m,
+      _SNICallback: [1mnull[22m,
+      servername: [32m'staging.kriyadocs.com'[39m,
+      alpnProtocol: [33mfalse[39m,
+      authorized: [33mtrue[39m,
+      authorizationError: [1mnull[22m,
+      encrypted: [33mtrue[39m,
+      _events: [36m[Object: null prototype][39m,
+      _eventsCount: [33m10[39m,
+      connecting: [33mfalse[39m,
+      _hadError: [33mfalse[39m,
+      _parent: [1mnull[22m,
+      _host: [32m'staging.kriyadocs.com'[39m,
+      _readableState: [36m[ReadableState][39m,
+      _maxListeners: [90mundefined[39m,
+      _writableState: [36m[WritableState][39m,
+      allowHalfOpen: [33mfalse[39m,
+      _sockname: [1mnull[22m,
+      _pendingData: [1mnull[22m,
+      _pendingEncoding: [32m''[39m,
+      server: [90mundefined[39m,
+      _server: [1mnull[22m,
+      ssl: [36m[TLSWrap][39m,
+      _requestCert: [33mtrue[39m,
+      _rejectUnauthorized: [33mtrue[39m,
+      parser: [1mnull[22m,
+      _httpMessage: [36m[Circular *1][39m,
+      [[32mSymbol(res)[39m]: [36m[TLSWrap][39m,
+      [[32mSymbol(verified)[39m]: [33mtrue[39m,
+      [[32mSymbol(pendingSession)[39m]: [1mnull[22m,
+      [[32mSymbol(async_id_symbol)[39m]: [33m79[39m,
+      [[32mSymbol(kHandle)[39m]: [36m[TLSWrap][39m,
+      [[32mSymbol(lastWriteQueueSize)[39m]: [33m0[39m,
+      [[32mSymbol(timeout)[39m]: [1mnull[22m,
+      [[32mSymbol(kBuffer)[39m]: [1mnull[22m,
+      [[32mSymbol(kBufferCb)[39m]: [1mnull[22m,
+      [[32mSymbol(kBufferGen)[39m]: [1mnull[22m,
+      [[32mSymbol(kCapture)[39m]: [33mfalse[39m,
+      [[32mSymbol(kSetNoDelay)[39m]: [33mfalse[39m,
+      [[32mSymbol(kSetKeepAlive)[39m]: [33mtrue[39m,
+      [[32mSymbol(kSetKeepAliveInitialDelay)[39m]: [33m60[39m,
+      [[32mSymbol(kBytesRead)[39m]: [33m0[39m,
+      [[32mSymbol(kBytesWritten)[39m]: [33m0[39m,
+      [[32mSymbol(connect-options)[39m]: [36m[Object][39m,
+      [[32mSymbol(RequestTimeout)[39m]: [90mundefined[39m
+    },
+    _header: [32m'POST /api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599 HTTP/1.1\r\n'[39m +
+      [32m'Accept: application/json, text/plain, */*\r\n'[39m +
+      [32m'Content-Type: multipart/form-data; boundary=--------------------------692293862616301590367863\r\n'[39m +
+      [32m'User-Agent: axios/1.6.7\r\n'[39m +
+      [32m'Content-Length: 2417432\r\n'[39m +
+      [32m'Accept-Encoding: gzip, compress, deflate, br\r\n'[39m +
+      [32m'Host: staging.kriyadocs.com\r\n'[39m +
+      [32m'Connection: close\r\n'[39m +
+      [32m'\r\n'[39m,
+    _keepAliveTimeout: [33m0[39m,
+    _onPendingData: [36m[Function: nop][39m,
+    agent: Agent {
+      _events: [36m[Object: null prototype][39m,
+      _eventsCount: [33m2[39m,
+      _maxListeners: [90mundefined[39m,
+      defaultPort: [33m443[39m,
+      protocol: [32m'https:'[39m,
+      options: [36m[Object: null prototype][39m,
+      requests: [Object: null prototype] {},
+      sockets: [36m[Object: null prototype][39m,
+      freeSockets: [Object: null prototype] {},
+      keepAliveMsecs: [33m1000[39m,
+      keepAlive: [33mfalse[39m,
+      maxSockets: [33mInfinity[39m,
+      maxFreeSockets: [33m256[39m,
+      scheduling: [32m'lifo'[39m,
+      maxTotalSockets: [33mInfinity[39m,
+      totalSocketCount: [33m1[39m,
+      maxCachedSessions: [33m100[39m,
+      _sessionCache: [36m[Object][39m,
+      [[32mSymbol(kCapture)[39m]: [33mfalse[39m
+    },
+    socketPath: [90mundefined[39m,
+    method: [32m'POST'[39m,
+    maxHeaderSize: [90mundefined[39m,
+    insecureHTTPParser: [90mundefined[39m,
+    path: [32m'/api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599'[39m,
+    _ended: [33mtrue[39m,
+    res: IncomingMessage {
+      _readableState: [36m[ReadableState][39m,
+      _events: [36m[Object: null prototype][39m,
+      _eventsCount: [33m4[39m,
+      _maxListeners: [90mundefined[39m,
+      socket: [36m[TLSSocket][39m,
+      httpVersionMajor: [33m1[39m,
+      httpVersionMinor: [33m1[39m,
+      httpVersion: [32m'1.1'[39m,
+      complete: [33mtrue[39m,
+      rawHeaders: [36m[Array][39m,
+      rawTrailers: [],
+      aborted: [33mfalse[39m,
+      upgrade: [33mfalse[39m,
+      url: [32m''[39m,
+      method: [1mnull[22m,
+      statusCode: [33m400[39m,
+      statusMessage: [32m'Bad Request'[39m,
+      client: [36m[TLSSocket][39m,
+      _consuming: [33mtrue[39m,
+      _dumped: [33mfalse[39m,
+      req: [36m[Circular *1][39m,
+      responseUrl: [32m'https://staging.kriyadocs.com/api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599'[39m,
+      redirects: [],
+      [[32mSymbol(kCapture)[39m]: [33mfalse[39m,
+      [[32mSymbol(kHeaders)[39m]: [36m[Object][39m,
+      [[32mSymbol(kHeadersCount)[39m]: [33m28[39m,
+      [[32mSymbol(kTrailers)[39m]: [1mnull[22m,
+      [[32mSymbol(kTrailersCount)[39m]: [33m0[39m,
+      [[32mSymbol(RequestTimeout)[39m]: [90mundefined[39m
+    },
+    aborted: [33mfalse[39m,
+    timeoutCb: [1mnull[22m,
+    upgradeOrConnect: [33mfalse[39m,
+    parser: [1mnull[22m,
+    maxHeadersCount: [1mnull[22m,
+    reusedSocket: [33mfalse[39m,
+    host: [32m'staging.kriyadocs.com'[39m,
+    protocol: [32m'https:'[39m,
+    _redirectable: Writable {
+      _writableState: [36m[WritableState][39m,
+      _events: [36m[Object: null prototype][39m,
+      _eventsCount: [33m3[39m,
+      _maxListeners: [90mundefined[39m,
+      _options: [36m[Object][39m,
+      _ended: [33mtrue[39m,
+      _ending: [33mtrue[39m,
+      _redirectCount: [33m0[39m,
+      _redirects: [],
+      _requestBodyLength: [33m2417432[39m,
+      _requestBodyBuffers: [],
+      _onNativeResponse: [36m[Function (anonymous)][39m,
+      _currentRequest: [36m[Circular *1][39m,
+      _currentUrl: [32m'https://staging.kriyadocs.com/api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599'[39m,
+      [[32mSymbol(kCapture)[39m]: [33mfalse[39m
+    },
+    [[32mSymbol(kCapture)[39m]: [33mfalse[39m,
+    [[32mSymbol(kNeedDrain)[39m]: [33mtrue[39m,
+    [[32mSymbol(corked)[39m]: [33m0[39m,
+    [[32mSymbol(kOutHeaders)[39m]: [Object: null prototype] {
+      accept: [36m[Array][39m,
+      [32m'content-type'[39m: [36m[Array][39m,
+      [32m'user-agent'[39m: [36m[Array][39m,
+      [32m'content-length'[39m: [36m[Array][39m,
+      [32m'accept-encoding'[39m: [36m[Array][39m,
+      host: [36m[Array][39m
+    },
+    [[32mSymbol(kUniqueHeaders)[39m]: [1mnull[22m
+  },
+  response: {
+    status: [33m400[39m,
+    statusText: [32m'Bad Request'[39m,
+    headers: Object [AxiosHeaders] {
+      date: [32m'Wed, 17 Apr 2024 07:11:39 GMT'[39m,
+      [32m'content-type'[39m: [32m'text/html; charset=utf-8'[39m,
+      [32m'content-length'[39m: [32m'91'[39m,
+      connection: [32m'close'[39m,
+      etag: [32m'W/"5b-OcSRAFfpCGexN7fGlbl6epqwt0I"'[39m,
+      [32m'set-cookie'[39m: [36m[Array][39m,
+      [32m'strict-transport-security'[39m: [32m'max-age=15552000; includeSubDomains'[39m,
+      vary: [32m'Accept-Encoding'[39m,
+      [32m'x-content-type-options'[39m: [32m'nosniff'[39m,
+      [32m'x-dns-prefetch-control'[39m: [32m'off'[39m,
+      [32m'x-download-options'[39m: [32m'noopen'[39m,
+      [32m'x-frame-options'[39m: [32m'SAMEORIGIN'[39m,
+      [32m'x-k-server'[39m: [32m'staging'[39m,
+      [32m'x-xss-protection'[39m: [32m'1; mode=block'[39m
+    },
+    config: {
+      transitional: [36m[Object][39m,
+      adapter: [36m[Array][39m,
+      transformRequest: [36m[Array][39m,
+      transformResponse: [36m[Array][39m,
+      timeout: [33m0[39m,
+      xsrfCookieName: [32m'XSRF-TOKEN'[39m,
+      xsrfHeaderName: [32m'X-XSRF-TOKEN'[39m,
+      maxContentLength: [33m-1[39m,
+      maxBodyLength: [33m-1[39m,
+      env: [36m[Object][39m,
+      validateStatus: [36m[Function: validateStatus][39m,
+      headers: [36m[Object [AxiosHeaders]][39m,
+      method: [32m'post'[39m,
+      url: [32m'https://staging.kriyadocs.com/api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599'[39m,
+      data: [36m[FormData][39m
+    },
+    request: [36m<ref *1>[39m ClientRequest {
+      _events: [36m[Object: null prototype][39m,
+      _eventsCount: [33m7[39m,
+      _maxListeners: [90mundefined[39m,
+      outputData: [],
+      outputSize: [33m0[39m,
+      writable: [33mtrue[39m,
+      destroyed: [33mfalse[39m,
+      _last: [33mtrue[39m,
+      chunkedEncoding: [33mfalse[39m,
+      shouldKeepAlive: [33mfalse[39m,
+      maxRequestsOnConnectionReached: [33mfalse[39m,
+      _defaultKeepAlive: [33mtrue[39m,
+      useChunkedEncodingByDefault: [33mtrue[39m,
+      sendDate: [33mfalse[39m,
+      _removedConnection: [33mfalse[39m,
+      _removedContLen: [33mfalse[39m,
+      _removedTE: [33mfalse[39m,
+      _contentLength: [1mnull[22m,
+      _hasBody: [33mtrue[39m,
+      _trailer: [32m''[39m,
+      finished: [33mtrue[39m,
+      _headerSent: [33mtrue[39m,
+      _closed: [33mfalse[39m,
+      socket: [36m[TLSSocket][39m,
+      _header: [32m'POST /api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599 HTTP/1.1\r\n'[39m +
+        [32m'Accept: application/json, text/plain, */*\r\n'[39m +
+        [32m'Content-Type: multipart/form-data; boundary=--------------------------692293862616301590367863\r\n'[39m +
+        [32m'User-Agent: axios/1.6.7\r\n'[39m +
+        [32m'Content-Length: 2417432\r\n'[39m +
+        [32m'Accept-Encoding: gzip, compress, deflate, br\r\n'[39m +
+        [32m'Host: staging.kriyadocs.com\r\n'[39m +
+        [32m'Connection: close\r\n'[39m +
+        [32m'\r\n'[39m,
+      _keepAliveTimeout: [33m0[39m,
+      _onPendingData: [36m[Function: nop][39m,
+      agent: [36m[Agent][39m,
+      socketPath: [90mundefined[39m,
+      method: [32m'POST'[39m,
+      maxHeaderSize: [90mundefined[39m,
+      insecureHTTPParser: [90mundefined[39m,
+      path: [32m'/api/uploadxml?apiKey=36ab61a9-47e1-4db6-96db-8b95a9923599'[39m,
+      _ended: [33mtrue[39m,
+      res: [36m[IncomingMessage][39m,
+      aborted: [33mfalse[39m,
+      timeoutCb: [1mnull[22m,
+      upgradeOrConnect: [33mfalse[39m,
+      parser: [1mnull[22m,
+      maxHeadersCount: [1mnull[22m,
+      reusedSocket: [33mfalse[39m,
+      host: [32m'staging.kriyadocs.com'[39m,
+      protocol: [32m'https:'[39m,
+      _redirectable: [36m[Writable][39m,
+      [[32mSymbol(kCapture)[39m]: [33mfalse[39m,
+      [[32mSymbol(kNeedDrain)[39m]: [33mtrue[39m,
+      [[32mSymbol(corked)[39m]: [33m0[39m,
+      [[32mSymbol(kOutHeaders)[39m]: [36m[Object: null prototype][39m,
+      [[32mSymbol(kUniqueHeaders)[39m]: [1mnull[22m
+    },
+    data: [32m'Uploaded file name (Spectrum.00859-23) and DOI (Spectrum00859-23) in the xml does not match'[39m
+  }
+}
+]]>
+</system-err>
+</testcase>
+<testcase name="AuthorFlow › KD-TC-5398: Author should be able to attach pdf to the queries" classname="Author_Flow/auth_flow.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AuthorFlow › KD-TC-5397: Author should be able to resolve the opened queries" classname="Author_Flow/auth_flow.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AuthorFlow › KD-TC-5399: Author should be able to signoff the article" classname="Author_Flow/auth_flow.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="authorflow/authorflow.test.js" timestamp="2024-04-17T07:10:54.089Z" hostname="chromium" tests="1" failures="0" skipped="1" time="0.004" errors="0">
+<testcase name="KD-TC-5370: User should able to login kriyadocs with valid credentails" classname="authorflow/authorflow.test.js" time="0.004">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="references/references.test.js" timestamp="2024-04-17T07:10:54.089Z" hostname="chromium" tests="8" failures="0" skipped="8" time="0" errors="0">
+<testcase name="References › KD-TC-5378: References Should be validated from pubmed/crossref after structure" classname="references/references.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="References › KD-TC-5379: Untagged references should be highlighted in red coloured after structure" classname="references/references.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="References › KD-TC-5380: User Should be able to insert a reference using DOI in editor" classname="references/references.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="References › KD-TC-5381: User Should be able to insert a reference using pubmedid in editor" classname="references/references.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="References › KD-TC-5382: User Should be able to insert a reference using pasting a reference in editor" classname="references/references.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="References › KD-TC-5383: User Should be able to Delete a reference " classname="references/references.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="References › KD-TC-5384: User Should be able to Cite a reference " classname="references/references.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="References › KD-TC-5385: Reference reorder should work for numbered refernce citation as expected" classname="references/references.test.js" time="0">
+<skipped>
+</skipped>
 </testcase>
 </testsuite>
 </testsuites>

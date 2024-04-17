@@ -7,27 +7,10 @@ dotenv.config();
 let page;
 test.describe('Kriya_login', async() => {
     
-    //to check valid credentials
-    test('KD-TC-5370: User Should be able to login with valid credentials',async({ browser }) => {
+    //to check invalid credentials
+    test('KD-TC-5371: User Should be able to login with invalid credentials and show error',async({browser}) => {
         const context = await browser.newContext();
         page = await context.newPage();
-        await page.goto(process.env.siteName+"/logout");
-        await page.goto(process.env.siteName);
-        await page.locator('#username').fill(process.env.kusername);
-        await page.locator('#password').fill(process.env.password);
-        await page.locator('.input-field.col.s12.login.center.loginButton').click()
-        await page.waitForTimeout(2000);
-        if (await page.locator('.col.s6.confirmationPanel').isVisible())
-        {
-            await page.locator('.btn.waves-effect.waves-light.confirm').click();
-        }
-        await page.waitForSelector('#customerSelectionDiv .customerTitle .customerTitleDiv');
-        const dboard = page.locator('#customerSelectionDiv .customerTitle .customerTitleDiv');
-        await expect(dboard).toBeVisible();
-    })
-   
-    //to check invalid credentials
-    test('KD-TC-5371: User Should be able to login with invalid credentials and show error',async() => {
         await page.goto(process.env.siteName+"/logout");
         await page.goto(process.env.siteName);
         await page.locator('#username').fill(process.env.kusername);
@@ -58,6 +41,23 @@ test.describe('Kriya_login', async() => {
         const invpass = page.locator('#password.validate.formfields.invalid');
         await expect(invuser,invpass).toBeVisible();
     })
+
+        //to check valid credentials
+        test('KD-TC-5370: User Should be able to login with valid credentials',async() => {
+            await page.goto(process.env.siteName+"/logout");
+            await page.goto(process.env.siteName);
+            await page.locator('#username').fill(process.env.kusername);
+            await page.locator('#password').fill(process.env.password);
+            await page.locator('.input-field.col.s12.login.center.loginButton').click()
+            await page.waitForTimeout(2000);
+            if (await page.locator('.col.s6.confirmationPanel').isVisible())
+            {
+                await page.locator('.btn.waves-effect.waves-light.confirm').click();
+            }
+            await page.waitForSelector('#customerSelectionDiv .customerTitle .customerTitleDiv');
+            await page.context().storageState({path: "user.json"})
+            const dboard = page.locator('#customerSelectionDiv .customerTitle .customerTitleDiv');
+            await expect(dboard).toBeVisible();
+        })
     
 })
-

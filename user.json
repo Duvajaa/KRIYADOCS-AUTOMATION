@@ -1,0 +1,65 @@
+{
+  "cookies": [
+    {
+      "name": "connect.sid",
+      "value": "s%3Am_qgUEYtPzPSJbGqkCH5DDC9WFwZJWWL.eqewvg%2FVMsWZCIQ6K0Z5TSLUo2mQbS%2B3dQBgA%2Fs%2BO80",
+      "domain": "staging.kriyadocs.com",
+      "path": "/",
+      "expires": 1713343998.321563,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "kAccTkn",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrdXNlciI6eyJrdWlkIjoiNGI1MzYwZDMtOTliOC00ZWM5LWExNDYtNWEwOGVkOTU3MjYyIiwia3VuYW1lIjp7ImZpcnN0IjoiQXV0b21hdGlvbiIsImxhc3QiOiJUZXN0aW5nIn0sImt1ZW1haWwiOiJ0ZXN0aW5nYXV0b21hdGlvbkBleGV0ZXJwcmVtZWRpYS5jb20iLCJrYXBpa2V5IjoiNGI1MzYwZDMtOTliOC00ZWM5LWExNDYtNWEwOGVkOTU3MjYyIiwia3Vyb2xlc0FjY2VzcyI6ImFsbCJ9LCJpYXQiOjE3MTMzNDIxOTEsImV4cCI6MTcxMzQyODU5MX0.MDXuJaEDzlI6HQHkiqbkS2X4USBvEt7p91Z3ROTNfjs",
+      "domain": "staging.kriyadocs.com",
+      "path": "/",
+      "expires": 1713428591.169331,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "kAccExp",
+      "value": "1713428591509",
+      "domain": "staging.kriyadocs.com",
+      "path": "/",
+      "expires": 1713428591.169968,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "kMachTkn",
+      "value": "c37cfa99c2f9ffc8c721bc92c5b1eb924d745dcab07604d211d6c57b4a7b",
+      "domain": "staging.kriyadocs.com",
+      "path": "/",
+      "expires": 1744878191.170055,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    },
+    {
+      "name": "lang",
+      "value": "en-GB",
+      "domain": "staging.kriyadocs.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "path",
+      "value": "/",
+      "domain": "staging.kriyadocs.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

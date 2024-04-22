@@ -60,6 +60,7 @@ test.describe('Kriya_login', async() => {
             await page.context().storageState({path: "user.json"})
             const dboard = page.locator('#customerSelectionDiv .customerTitle .customerTitleDiv');
             await expect(dboard).toBeVisible();
+            await page.close();
         })
     
 })

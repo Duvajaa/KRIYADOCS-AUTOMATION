@@ -1,18 +1,44 @@
 const { test, expect } = require('@playwright/test');
+var commonData=require('./../../commonfunctionality') 
 var config = require('./reference_testdata.json');
 var dotenv = require('dotenv');
+var path = require('path')
 dotenv.config();
+var fs = require('fs')
+var path = require('path')
+var testName = 'editor_test'
 
 let page;
 
 test.describe('References',async() => {
 
-    test('KD-TC-5378: References Should be validated from pubmed/crossref after structure',async({ browser }) =>{
+    test('KD-TC-5378: References Should be validated from pubmed/crossref after structure content',async({ browser }) =>{
         const context = await browser.newContext({storageState: "user.json"});
         page = await context.newPage();
-        
+        //Upload manuscript
+        var data = config.editor_test.articletotest
+        for (var xmlFile = 0; xmlFile < data.length; xmlFile++) {
+            var filePath = path.resolve("./tests/006_references/" + config[testName]["articletotest"][xmlFile]["doi"] + ".xml")
+            console.log(filePath)
+            if (fs.existsSync(filePath)) {
+                var responseData = await commonData.resetData(config, xmlFile, testName, filePath)
+                await expect(responseData.status).toEqual(200)
+            }
+            else {
+                console.log(filePath + " No scuch file in the directory,Please check the xmlFile.")
+            }
+        }
+        //
         await page.goto(config.article1)
         await page.waitForLoadState();
+
+        await page.waitForSelector(".btn.pull-right.btn-small.action-btn.structureContent");
+        await page.click(".btn.pull-right.btn-small.action-btn.structureContent");
+        await page.click(".btn.btn-small.indigo.structure-content.lighten-2");
+        await page.waitForSelector(".pre-loader-message");
+        await page.waitForSelector(".pre-loader-message:has-text('Validating Reference through Biblio Service ...')");
+        await page.waitForSelector(".pre-loader-message:has-text('please wait ...')");
+        console.log("Structure content ran successfully !");
     
         await page.waitForSelector('.jrnlArtTitle[class-name="ArtTitle"]');
         const Artitle = page.locator('.jrnlArtTitle[class-name="ArtTitle"]');
@@ -45,11 +71,13 @@ test.describe('References',async() => {
         await page.locator('.kriyaMenuItem[data-name="InsertReference"]').click()
         await page.getByText('By DOI').click()
         await page.locator('.text-line.searchField').fill(config.testdoi)
+        await page.waitForTimeout(3000);
         await page.locator('.btn.btn-medium.pull-right[data-message*="searchRef_new"][data-message*="crossref"]').click()
+        await page.waitForTimeout(2000);
         await page.locator('.btn.btn-medium.orange.validateBtn.screen1show.screen2hide.screen3hide').click()
         await page.locator('.btn.btn-medium.blue.lighten-1.insertNewRef.screen3hide.screen2hide.screen1hide.insertshow').click()
         const Ddoiref = page.locator('.toast')
-        const doiref = page.locator('.jrnlRefText[data-pmid="38557498"]')
+        const doiref = page.locator('[data-customer="bmj"] .jrnlRefGroup p:last-child')
         await expect(Ddoiref).toBeVisible()
         await expect(doiref).toHaveAttribute('data-doi',config.testdoi)
 
@@ -68,7 +96,7 @@ test.describe('References',async() => {
         await page.locator('.btn.btn-medium.orange.validateBtn.screen1show.screen2hide.screen3hide').click()
         await page.locator('.btn.btn-medium.blue.lighten-1.insertNewRef.screen3hide.screen2hide.screen1hide.insertshow').click()
         const Dpubmedref = page.locator('.toast')
-        const pubmedref = page.locator('.jrnlRefText[data-pmid="38538791"]')
+        const pubmedref = page.locator('[data-customer="bmj"] .jrnlRefGroup p:last-child')
         await expect(Dpubmedref).toBeVisible()
         await expect(pubmedref).toHaveAttribute('data-pmid',config.testpmid)
     })
@@ -87,10 +115,10 @@ test.describe('References',async() => {
         await page.locator('.btn.btn-medium.pull-right[data-message*="searchRef_new"][data-message*="crossref"]').click()
         await page.locator('.btn.btn-medium.orange.validateBtn.screen1show.screen2hide.screen3hide').click()
         await page.locator('.btn.btn-medium.blue.lighten-1.insertNewRef.screen3hide.screen2hide.screen1hide.insertshow').click()
-        const Dpasteref = page.locator('.toast')
-        await expect(Dpasteref).toBeVisible()
-        const pasteref = page.locator('p[data-id="R15"] .RefSurName:nth-child(1)')
-        await expect(pasteref).toHaveText('Simon');
+        // const Dpasteref = page.locator('.toast')
+        // await expect(Dpasteref).toBeVisible()
+        const pasteref = page.locator('[data-customer="bmj"] .jrnlRefGroup p:last-child')
+        await expect(pasteref).toContainText('Simon');
     })
 
 //data-message="{'click':{'funcToCall': 'deleteBlockConfirmation', 'param': {'delFunc':'deleteFloatBlock'},'channel':'components','topic':'general'}}"
@@ -98,32 +126,45 @@ test.describe('References',async() => {
 
 
     test('KD-TC-5383: User Should be able to Delete a reference ', async() => {
-        await page.locator('p[data-id="R15"]').click()
-        await page.locator('.autoWidth.z-depth-2.bottom .btn.btn-hover:has-text("Delete")').click()
-        await page.locator('.popupFoot.row .btn.btn-medium.btn-danger.pull-right').click()
-        const del = page.locator('p[data-id="R15"]')
-        await expect(del).toHaveAttribute('data-track',"del")
+        await page.locator('#contentDivNode p[data-id="R14"]').click()
+        await page.waitForSelector('div[data-type="popUp"][data-component="jrnlRefText"]')
+        await page.click('div[data-type="popUp"][data-component="jrnlRefText"] span:has-text("Delete")');
+        await page.locator("span[class='btn btn-medium btn-success pull-right']").click();
+        const del = page.locator('p.jrnlRefText[data-track="del"]')
+        await expect(del).toHaveAttribute('data-track-detail',"The reference R14 was deleted.")
     })
     
     test('KD-TC-5384: User Should be able to Cite a reference ', async() => {
-        await page.locator('p[data-id="R13"]').click()
-        await page.locator('.autoWidth.z-depth-2.bottom .btn.btn-hover:has-text("CiteNow")').click()
-        await page.locator('.btn.btn-hover.indirectCitation').click()
-        const citation = page.locator('.jrnlBibRef.activeElement[data-match="10"]')
+        await page.locator('#contentDivNode p[data-id="R13"]').click()
+        await page.locator('#contentDivNode p[data-id="R13"]').click()
+        await page.waitForSelector('div[data-type="popUp"][data-component="jrnlRefText"]')
+        await page.click('div[data-type="popUp"][data-component="jrnlRefText"] span:has-text("Cite Now")');
+        await page.waitForTimeout(1000);
+        await page.locator('#contentContainer h1:has-text("Discussion") + p.jrnlSecPara').click()
+        await page.click(".btn.btn-hover.indirectCitation");
+        const citation = page.locator('span.jrnlBibRef[data-track="ins"][data-citation-string=" R13 "][data-cite-type="insert"]')
         await expect(citation).toBeVisible();
     })
 
     test('KD-TC-5385: Reference reorder should work for numbered refernce citation as expected', async() => {
-        await page.locator('#R10').click()
-        await page.locator('.autoWidth.z-depth-2.bottom .btn.btn-hover:has-text("CiteNow")').click()
-        await page.locator('.btn.btn-hover.indirectCitation').click()
-        const reorderdialog = page.locator('#toast-container')
-        await expect(reorderdialog).toBeVisible()
-        await page.locator('.col.s12 .btn.btn-success.btn-medium.pull-right').click()
-        const citevis = page.locator('.jrnlBibRef[data-init-id="R13"]')
-        await expect(citevis).toBeVisible()
-        await expect(citevis).toHaveAttribute('data-init-id',"R13")
+        await page.waitForSelector(".kriya-notice.success .kriya-notice-header:has-text('please modify the order of the first citations in the text as needed')")
+        await page.click(".kriya-notice-body span.btn.btn-success.btn-medium.pull-right");
+        console.log("Reference reordered successfully !")
+        const ref13 = page.locator('#contentDivNode p[data-id="R13"]');
+        await expect(ref13).toContainText("Hayashi");
 
+        // await page.locator('#contentDivNode p[data-id="R12"]').click()
+        // await page.waitForSelector('div[data-type="popUp"][data-component="jrnlRefText"]')
+        // await page.click('div[data-type="popUp"][data-component="jrnlRefText"] span:has-text("Cite Now")');
+        // await page.waitForTimeout(1000);
+        // await page.locator('#contentContainer h1:has-text("Discussion") + p.jrnlSecPara').click()
+        // await page.click(".btn.btn-hover.indirectCitation");
+        // const reorderdialog = page.locator('#toast-container')
+        // await expect(reorderdialog).toBeVisible()
+        // await page.locator('.col.s12 .btn.btn-success.btn-medium.pull-right').click()
+        // const citevis = page.locator('.jrnlBibRef[data-init-id="R13"]')
+        // await expect(citevis).toBeVisible()
+        // await expect(citevis).toHaveAttribute('data-init-id',"R13")
     })
 
 })

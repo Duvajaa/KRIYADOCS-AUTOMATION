@@ -16,6 +16,7 @@ module.exports = defineConfig({
   timeout: 300000,
   testDir: './tests',
   workers: 1,
+  retries:0,
   // expect: { timeout: 100000 },
   /* Run tests in files in parallel */
   // fullyParallel: true,
@@ -63,6 +64,7 @@ module.exports = defineConfig({
         use: { 
         browserName: 'chromium',
         viewport: null,
+        headless: false,
         launchOptions: {
           args: ['--start-maximized']
         }

@@ -6,3 +6,7 @@ node_modules/
 .env
 .csv
 .xlsx
+.DS_Store
+user.json
+tests/reportsreport.csv
+tests/reportsReport.xlsx

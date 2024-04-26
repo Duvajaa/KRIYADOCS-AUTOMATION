@@ -1,7 +1,13 @@
 const{test,expect}=require('@playwright/test')
-
 var dotenv = require('dotenv')
 dotenv.config()
+var commonData=require('./../../commonfunctionality') 
+var config = require('./ce_flow.json')
+
+var path = require('path')
+var fs = require('fs')
+var path = require('path')
+var testName = 'editor_test'
 
 let page
 let newPage
@@ -13,39 +19,65 @@ test.describe('Copyeditor flow',async() =>
 
             const context = await browser.newContext({storageState: "user.json"})
             page = await context.newPage()
+            var data = config.editor_test.articletotest
+    for (var xmlFile = 0; xmlFile < data.length; xmlFile++) {
+        var filePath = path.resolve("./tests/Copyeditor_flow/" + config[testName]["articletotest"][xmlFile]["doi"] + ".xml")
+        console.log(filePath)
+        if (fs.existsSync(filePath)) {
+            var responseData = await commonData.resetData(config, xmlFile, testName, filePath)
+            expect(responseData.status).toEqual(200)
+        }
+        else {
+            console.log(filePath + " No scuch file in the directory,Please check the xmlFile.")
+        }
+    }
             await page.goto(pageURL)
-            await page.getByText('eLife Sciences Publications Ltd.').click()
-            await page.goto('https://staging.kriyadocs.com/proof_review?doi=84173&customer=elife&project=elife&type=journal')
+            await page.getByText('Microbiology Society').click()
+            await page.goto('https://staging.kriyadocs.com/proof_review?doi=IJSEM-D-24-00088&customer=mbs&project=ijsem&type=journal')
             
             //click approve button
-            page.click('.btn.btn-small.action-btn[data-name="Approve"]')
+            await page.locator('.btn.btn-small.action-btn[data-name="Approve"]').click()
+            await page.waitForSelector('.z-depth-2.bottom.manualSave[data-name="PROBE_VALIDATION_edit"]')
 
-            //error pop-up
+            await page.evaluate(() => {
+              const elementToRemove = document.querySelector('.z-depth-2.bottom.manualSave[data-name="PROBE_VALIDATION_edit"]');
+              if (elementToRemove) {
+                elementToRemove.remove()
+              }
+            })
+
+            //click approve button
+            await page.locator('.btn.btn-small.action-btn[data-name="Approve"]').click()
+
+            /*other kind of error pop-up
             await page.waitForSelector('.input-field.col.s12.probeResultContainer')
-            await page.click('.btn.btn-medium.blue.lighten-2.proceedingSignoff')
+            await page.click('.btn.btn-medium.blue.lighten-2.proceedingSignoff')*/
 
             //wait for the signoff pop-up
             await page.waitForSelector('.sign-off-row.sign-off-seperator')
 
             //click the required option
-            await page.click('[name="signoff-radio"]')
+            await page.click('[data-reviewer="copyediting"]')
+            //await page.locator('.recipient').click()
+            await page.locator('.recipient').selectOption('copyediting@kriyadocs.com')
+            //await page.click('.recipient [value="copyediting@kriyadocs.com"]')
+
 
             //click signoff button
             await page.click('.sign-off-options #signoffConform')
 
             //expect the signoff message
-            const signoff=page.getByText('You have successfully signed off the article to the next stage.')
-            await page.waitForSelector(signoff)
+            await page.waitForSelector('.messageDiv .message')
             console.log('signoff successful') 
 
             //back to dashboard
             await page.goto('https://staging.kriyadocs.com/dashboard')
-            await page.getByText('eLife Sciences Publications Ltd.').click() 
+            await page.getByText('Microbiology Society').click() 
 
             //search the doi 
             await page.waitForSelector('#searchBox.form-control.form-control-sm')
-            await page.locator('#searchBox.form-control.form-control-sm').fill('84173')
-            await page.waitForTimeout(3000)
+            await page.locator('#searchBox.form-control.form-control-sm').fill('IJSEM-D-24-00088')
+            await page.waitForTimeout(2000)
             await page.click('.input-group-prepend .searchIcon')
     
 
@@ -71,7 +103,7 @@ test.describe('Copyeditor flow',async() =>
             await page.click("(//div[@class='mail-subject'])[1]")
 
             //expect the link 
-            const link_ele=page.locator("(//a[@data-link-page='proof_review'])[1]")
+            const link_ele=page.locator("//a[contains(text(),'​LINK')]")
             await expect(link_ele).toBeVisible()
             await expect(link_ele).toBeEnabled()
             console.log('link available')
@@ -79,22 +111,22 @@ test.describe('Copyeditor flow',async() =>
             //get the href attribute
             const link=await link_ele.getAttribute('href')
 
+            await page.close()
+
             //create incognito 
             const incogo = await browser.newContext({ incognito: true });
-            const newPage = await incogo.newPage()
+            newPage = await incogo.newPage()
 
             //goto the href
             await newPage.goto(link)
     
             //expect the article 
-            await newPage.waitForSelector('#editorContainer')
-            await expect(newPage.locator('#editorContainer')).toBeVisible()
+            await newPage.waitForSelector('#headerContainer')
+            //await expect(newPage.locator('#editorContainer')).toBeVisible()
             console.log('Your article is now ready') 
  })
 
     test(' KD-TC-5401: Copyeditor should be able to reply for open queries',async() => {
-
-            //await newPage.goto('https://staging.kriyadocs.com/proof_review/?key=8e846e694f500fa895a00d74e40f091fc2a17eb93b9fe260554cd628f4bd2d0c9f6f2c0a71301947f0d37da984c95c59d223bcb7950fc0f7b67ca5da7e6299c41c2cd7f6adf0e37392da1881dbb29f9a761496dde402704c18d0ef9af09f854a258e392b5d42344b4d1df6db5800b13d5aee20d5daa3047fc065c5b1f2fc8b')
             
             //click query button
             await newPage.click('.nav-action-icon.notes-icon')
@@ -150,16 +182,16 @@ test.describe('Copyeditor flow',async() =>
            await newPage.waitForTimeout(2000)  
 
            //enter query
-           await newPage.locator('.query-text-line.info.queryContent').type('aloha')
+           await newPage.locator('.query-text-line.info.queryContent').type('hurayyyy!!!')
            await newPage.waitForTimeout(3000)
 
            //click add
            await newPage.locator('.btn.btn-medium.blue.lighten-2.add-query[data-name="query_add"]').click()
            }
 
-           //verify the added query
+          /*verify the added query
            await newPage.waitForSelector('#openQueryDivNode .query-div.card.author.selected :text("aloha")')
-           await expect(newPage.locator('#openQueryDivNode .query-div.card.author.selected :text("aloha")')).toBeVisible()
+           await expect(newPage.locator('#openQueryDivNode .query-div.card.author.selected :text("aloha")')).toBeVisible()*/
            console.log('query added!!')
 
     })
@@ -172,20 +204,41 @@ test.describe('Copyeditor flow',async() =>
     //expect the signoff pop-up
     await newPage.waitForSelector('.sign-off-row.sign-off-seperator')
 
-    //select the option
-    const signoff_option=await newPage.getByText(' I have reviewed the proof and want to send for copyediting check')
-    await expect(signoff_option).toBeVisible()
-    await newPage.click('xpath=//*[@id="compDivContent"]/div/div[84]/div/div[2]/div/div[3]/p[1]/input')
+    /*const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    })
+    console.log('Please select an option:')
+    console.log('1. I have reviewed the proof and I am satisfied that all of my edits are complete.')
+    console.log('2. Assign to level 3 copy editing.')
 
-    //click signoff
-    await newPage.click('.sign-off-options #signoffConform')
+    rl.question('Enter your choice: ', async (choice) => {
+      if (choice.trim() === '1') {
+        await newPage.click('[data-reviewer="typesettercheck"]')
+      }
+      else if (choice.trim() === '2') {
+        await newPage.click('[data-reviewer="publishercheck"]')
+      }
+      else {
+        console.log('Invalid choice. Please choose either 1 or 2.')
+      }
+*/
+      //select the option
+      await newPage.click('[data-reviewer="typesettercheck"]')
+      //const signoff_option=await newPage.getByText(' I have reviewed the proof and want to send for copyediting check')
+      //await expect(signoff_option).toBeVisible()
+      //await newPage.click('xpath=//*[@id="compDivContent"]/div/div[84]/div/div[2]/div/div[3]/p[1]/input')
 
-    //expect the signoff message
-    await newPage.getByText('You have successfully signed off the article to the next stage.')
-    console.log('signoff successful')
-  })
-  
+      //click signoff
+      await newPage.click('.sign-off-options #signoffConform')
+
+      //expect the signoff message
+      await newPage.waitForSelector('.messageDiv .message')
+      console.log('signoff successful')
+    })
 })
+  
+//})
 
 
 

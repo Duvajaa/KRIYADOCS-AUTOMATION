@@ -1,0 +1,12 @@
+{
+    "baseurl": "/dashboard",
+    "editor_test": {
+      "articletotest": [
+        {
+          "customer": "mbs",
+          "project": "ijsem",
+          "doi": "IJSEM-D-24-00088"
+        }
+      ]
+    }
+}

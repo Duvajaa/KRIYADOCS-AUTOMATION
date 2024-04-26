@@ -1,7 +1,7 @@
 const{test,expect}=require('@playwright/test')
 var dotenv = require('dotenv')
 dotenv.config()
-var commonData=require('./../../commonfunctionality') 
+var commonData=require('../../commonfunctionality') 
 var config = require('./ce_flow.json')
 
 var path = require('path')
@@ -21,7 +21,7 @@ test.describe('Copyeditor flow',async() =>
             page = await context.newPage()
             var data = config.editor_test.articletotest
     for (var xmlFile = 0; xmlFile < data.length; xmlFile++) {
-        var filePath = path.resolve("./tests/Copyeditor_flow/" + config[testName]["articletotest"][xmlFile]["doi"] + ".xml")
+        var filePath = path.resolve("./tests/007_copyeditor_flow/" + config[testName]["articletotest"][xmlFile]["doi"] + ".xml")
         console.log(filePath)
         if (fs.existsSync(filePath)) {
             var responseData = await commonData.resetData(config, xmlFile, testName, filePath)
@@ -31,9 +31,8 @@ test.describe('Copyeditor flow',async() =>
             console.log(filePath + " No scuch file in the directory,Please check the xmlFile.")
         }
     }
-            await page.goto(pageURL)
-            await page.getByText('Microbiology Society').click()
-            await page.goto('https://staging.kriyadocs.com/proof_review?doi=IJSEM-D-24-00088&customer=mbs&project=ijsem&type=journal')
+
+            await page.goto(pageURL+config.article1)
             
             //click approve button
             await page.locator('.btn.btn-small.action-btn[data-name="Approve"]').click()
@@ -71,13 +70,13 @@ test.describe('Copyeditor flow',async() =>
             console.log('signoff successful') 
 
             //back to dashboard
-            await page.goto('https://staging.kriyadocs.com/dashboard')
+            await page.goto(pageURL+config.baseurl)
             await page.getByText('Microbiology Society').click() 
 
             //search the doi 
             await page.waitForSelector('#searchBox.form-control.form-control-sm')
-            await page.locator('#searchBox.form-control.form-control-sm').fill('IJSEM-D-24-00088')
-            await page.waitForTimeout(2000)
+            await page.locator('#searchBox.form-control.form-control-sm').fill(config.articleDOI)
+            await page.waitForTimeout(5000)
             await page.click('.input-group-prepend .searchIcon')
     
 
@@ -101,7 +100,7 @@ test.describe('Copyeditor flow',async() =>
             await page.waitForSelector("(//div[@class='mail-subject'])[1]")
             //await expect(page.locator("(//div[@class='mail-subject'])[1]")).toBeVisible()
             await page.click("(//div[@class='mail-subject'])[1]")
-
+            await page.screenshot({ path: 'tests/007_copyeditor_flow/ceflow1.png' });
             //expect the link 
             const link_ele=page.locator("//a[contains(text(),'​LINK')]")
             await expect(link_ele).toBeVisible()
@@ -234,6 +233,7 @@ test.describe('Copyeditor flow',async() =>
 
       //expect the signoff message
       await newPage.waitForSelector('.messageDiv .message')
+      await page.screenshot({ path: 'tests/007_copyeditor_flow/ceflow2.png' });
       console.log('signoff successful')
     })
 })

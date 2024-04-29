@@ -28,16 +28,13 @@ test.describe('issue_binder',async() =>{
     //add issue
     await ip.add_issue()
 
-    /*expect the issue_info in newtab
-    await ip.finaladd_expect_issueinfo()*/
-
     //previous tab  
     await ip.expect_success_popup()
     
     })
 
 
- /* test('KD-TC-5411: User should be able to add articles into the section',async() =>{
+ test('KD-TC-5411: User should be able to add articles into the section',async() =>{
         //issue binder page
         await page.goto(`https://staging.kriyadocs.com/binder?fileName=msphere_${config.vol_no}_${issuenum}&customer=asm&project=msphere&type=journal`)
         // await page.goto("https://staging.kriyadocs.com/binder?fileName=msphere_11_502&customer=asm&project=msphere&type=journal")
@@ -93,5 +90,5 @@ test.describe('issue_binder',async() =>{
         const signoffelem = page.locator("div[class='message']");
         expect(signoffelem).toHaveText('You have successfully signed off the issue to the next stage. Please close the browser to exit the system.');
         
-    })*/
+    })
 })

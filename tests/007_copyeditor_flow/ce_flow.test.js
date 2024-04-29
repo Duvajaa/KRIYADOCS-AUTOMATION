@@ -233,7 +233,7 @@ test.describe('Copyeditor flow',async() =>
 
       //expect the signoff message
       await newPage.waitForSelector('.messageDiv .message')
-      await page.screenshot({ path: 'tests/007_copyeditor_flow/ceflow2.png' });
+      await newPage.screenshot({ path: 'tests/007_copyeditor_flow/ceflow2.png' });
       console.log('signoff successful')
     })
 })

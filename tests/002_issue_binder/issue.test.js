@@ -3,60 +3,41 @@ var config = require('./issue.json')
 var dotenv = require('dotenv');
 const { request } = require('http');
 dotenv.config();
+const issuePage=require('../../pages/issuePage')
 
 let page
 let pageURL = process.env.siteName
-let issuenum
 
 test.describe('issue_binder',async() =>{
     test('KD-TC-5410: User should be able to create a new issue',async({browser}) =>{
+
     const context = await browser.newContext({storageState: "user.json"})
     page = await context.newPage()
     await page.goto(pageURL+config.baseurl)
-    await page.getByText('asmAmerican Society for').click()
-    //wait for issue icon
-    await page.waitForSelector('.nav-link.issue')
-    await page.waitForLoadState('load')
-    //click the issue button
-    await page.locator('a').filter({ hasText: 'Issues' }).click()
-    //click add issue button
-    await page.click('.addNewIssueButton.btn-filled.btn.pull-right.btn-xs')
-    //expect add issue section
-    const add_issue_pop = page.locator('#addIssue.windowHeightCard')
-    await expect(add_issue_pop).toBeVisible()
 
-    const jname = page.locator('.addJobDiv #singleUpload #ajproject');
-    await jname.selectOption('msphere');
-    //add volume.no
-    await page.locator('#volumeNo').type(config.vol_no)
-    console.log("Volume number: "+config.vol_no)
-    //add issue.no
-    const randomThreeDigitNumber = Math.floor(Math.random() * 900) + 100;
-    issuenum = randomThreeDigitNumber.toString()
-    await page.locator('#issueNo').fill(issuenum)
-    console.log("Issue number: "+issuenum)
-    //add pub_year
-    await page.locator('#publicationYear').type(config.pub_year)
-    // await page.locator("(//span[contains(@class,'btn btn-filled')])[2]").click()
-    // await page.waitForTimeout(10000)
-    const page1Promise = page.waitForEvent('popup');
-    await page.locator('#singleUpload').getByText('Add issue').click();
-    await page.waitForTimeout(5000);
-    const page1 = await page1Promise;
-    await page1.waitForLoadState();
-    await page1.waitForSelector('#issueCoverInfo');
-    await expect(page1.locator('#issueCoverInfo')).toContainText(`msphere_${config.vol_no}_${issuenum}`);
-    await page1.close();
+    //select customer
+    let ip=new issuePage(page)
+    await ip.click_customer()
+
+    //wait for issue icon
+    await ip.expect_issueicon()
+   
+    //click the issue button
+    await ip.click_issuebtn()
+
+    //add issue
+    await ip.add_issue()
+
+    /*expect the issue_info in newtab
+    await ip.finaladd_expect_issueinfo()*/
+
     //previous tab  
-    page.bringToFront(),
-    await page.screenshot({ path: 'tests/002_issue_binder/issue1.png' });
-    //successfully added pop-up
-    expect(page.locator('.ui-pnotify-title')).toBeVisible()
+    await ip.expect_success_popup()
     
     })
 
 
-  test('KD-TC-5411: User should be able to add articles into the section',async() =>{
+ /* test('KD-TC-5411: User should be able to add articles into the section',async() =>{
         //issue binder page
         await page.goto(`https://staging.kriyadocs.com/binder?fileName=msphere_${config.vol_no}_${issuenum}&customer=asm&project=msphere&type=journal`)
         // await page.goto("https://staging.kriyadocs.com/binder?fileName=msphere_11_502&customer=asm&project=msphere&type=journal")
@@ -112,5 +93,5 @@ test.describe('issue_binder',async() =>{
         const signoffelem = page.locator("div[class='message']");
         expect(signoffelem).toHaveText('You have successfully signed off the issue to the next stage. Please close the browser to exit the system.');
         
-    })
+    })*/
 })

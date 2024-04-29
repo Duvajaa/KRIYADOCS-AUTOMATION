@@ -3,28 +3,24 @@ var dotenv = require('dotenv');
 dotenv.config();
 
 class LoginPage {
+    
+    //Constructor
     constructor(page) {
       this.page = page;
       this.username = '#username';
       this.password = '#password';
       this.loginBtn = '.input-field.col.s12.login.center.loginButton';
+      this.forgetPassword = ".row.login-view.forgetpassword.forgetPass a";
     }
   
+    //Methods
     async openURL() {
       await this.page.goto(process.env.siteName);
-    }
-
-    async enterUsername() {
-      await this.page.fill(this.username, process.env.kusername);
-    }
+    } 
 
     //enter username through argument
     async enterUsername(uname) {
       await this.page.fill(this.username, uname);
-    }
-  
-    async enterPassword() {
-      await this.page.fill(this.password, process.env.password);
     }
 
     //enter passeord through argument
@@ -35,7 +31,12 @@ class LoginPage {
     async clickLoginBtn() {
       await this.page.click(this.loginBtn);
     }
+
+    async clickForgetPassword(){
+      await this.page.click(this.forgetPassword);
+    }
   
+    //Functions
     // async login(email, password) {
     //   await this.navigateTo();
     //   await this.fillEmail(email);
